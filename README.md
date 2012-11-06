@@ -20,7 +20,7 @@ This is how you roll
 
 	Roll roll = cup.roll();
 	// of course the results are random, this is an example
-	roll.all(); 			// [1,3,4,5x2]
+	roll.all(); 			// [1,3,4,5,5]
 	roll.byId("skill");		// [3,4,5]
 	roll.byId("pool");		// [1,5]
 
