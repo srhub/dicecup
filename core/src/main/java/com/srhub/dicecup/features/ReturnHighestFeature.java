@@ -58,6 +58,32 @@ class ReturnHighestFeature extends AbstractFeature {
 		return input.subList(size - n - 1, size - 1);
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 67;
+		int result = 1;
+		result = prime * result + n;
+		return result;
+	}
+
+	@Override
+	public boolean equals(final Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		final ReturnHighestFeature other = (ReturnHighestFeature) obj;
+		if (n != other.n) {
+			return false;
+		}
+		return true;
+	}
+
 	/*
 	 * (non-Javadoc)
 	 *

@@ -91,6 +91,37 @@ public class ExpressionFeature extends AbstractFeature {
 		return output;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 47;
+		int result = 1;
+		result = prime * result
+				+ ((expression == null) ? 0 : expression.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(final Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		final ExpressionFeature other = (ExpressionFeature) obj;
+		if (expression == null) {
+			if (other.expression != null) {
+				return false;
+			}
+		} else if (!expression.equals(other.expression)) {
+			return false;
+		}
+		return true;
+	}
+
 	/*
 	 * (non-Javadoc)
 	 *

@@ -270,4 +270,40 @@ public class Cup {
 	public void clear() {
 		groups.clear();
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((groups == null) ? 0 : groups.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(final Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		final Cup other = (Cup) obj;
+		if (groups == null) {
+			if (other.groups != null) {
+				return false;
+			}
+		} else if (!groups.equals(other.groups)) {
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Cup [" + (groups != null ? "groups=" + groups : "") + "]";
+	}
+
 }

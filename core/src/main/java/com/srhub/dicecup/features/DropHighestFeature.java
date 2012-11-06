@@ -21,7 +21,7 @@ import java.util.List;
 
 /**
  * Drop the highest dice from the dice roll.
- *
+ * 
  * @author Oliver Schrenk <oliver.schrenk@gmail.com>
  */
 class DropHighestFeature extends AbstractFeature {
@@ -31,7 +31,7 @@ class DropHighestFeature extends AbstractFeature {
 
 	/**
 	 * Instantiates the feature.
-	 *
+	 * 
 	 * @param n
 	 *            the n
 	 */
@@ -41,7 +41,7 @@ class DropHighestFeature extends AbstractFeature {
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see
 	 * com.srhub.dicecup.features.AbstractDiceAgnosticFeature#apply(java.util
 	 * .List)
@@ -66,9 +66,35 @@ class DropHighestFeature extends AbstractFeature {
 		return output;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 37;
+		int result = 1;
+		result = prime * result + n;
+		return result;
+	}
+
+	@Override
+	public boolean equals(final Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		final DropHighestFeature other = (DropHighestFeature) obj;
+		if (n != other.n) {
+			return false;
+		}
+		return true;
+	}
+
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override

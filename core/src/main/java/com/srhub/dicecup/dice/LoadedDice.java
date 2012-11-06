@@ -17,6 +17,7 @@ package com.srhub.dicecup.dice;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Deque;
 import java.util.List;
@@ -235,6 +236,54 @@ public class LoadedDice extends AbstractDice {
 	 */
 	public static Builder set(final int face, final double probability) {
 		return new Builder().set(face, probability);
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + Arrays.hashCode(alias);
+		result = prime * result + Arrays.hashCode(probability);
+		result = prime * result + ((random == null) ? 0 : random.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(final Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		final LoadedDice other = (LoadedDice) obj;
+		if (!Arrays.equals(alias, other.alias)) {
+			return false;
+		}
+		if (!Arrays.equals(probability, other.probability)) {
+			return false;
+		}
+		if (random == null) {
+			if (other.random != null) {
+				return false;
+			}
+		} else if (!random.equals(other.random)) {
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "LoadedDice ["
+				+ (random != null ? "random=" + random + ", " : "")
+				+ (alias != null ? "alias=" + Arrays.toString(alias) + ", "
+						: "")
+				+ (probability != null ? "probability="
+						+ Arrays.toString(probability) : "") + "]";
 	}
 
 	/**

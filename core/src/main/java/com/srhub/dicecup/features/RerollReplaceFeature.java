@@ -67,6 +67,32 @@ class RerollReplaceFeature extends AbstractFeature {
 		return output;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 61;
+		int result = 1;
+		result = prime * result + rerollAt;
+		return result;
+	}
+
+	@Override
+	public boolean equals(final Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		final RerollReplaceFeature other = (RerollReplaceFeature) obj;
+		if (rerollAt != other.rerollAt) {
+			return false;
+		}
+		return true;
+	}
+
 	/*
 	 * (non-Javadoc)
 	 *

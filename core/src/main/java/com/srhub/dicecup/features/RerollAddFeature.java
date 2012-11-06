@@ -23,7 +23,7 @@ import java.util.List;
 /**
  * Reroll all dice with the given number of pips and add add the new result to
  * the roll result while keeping the old dice result.
- * 
+ *
  * @author Oliver Schrenk <oliver.schrenk@gmail.com>
  */
 class RerollAddFeature extends AbstractFeature {
@@ -33,7 +33,7 @@ class RerollAddFeature extends AbstractFeature {
 
 	/**
 	 * Instantiates the feature.
-	 * 
+	 *
 	 * @param rerollAt
 	 *            the reroll at
 	 */
@@ -43,7 +43,7 @@ class RerollAddFeature extends AbstractFeature {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.srhub.dicecup.features.AbstractFeature#apply(java.util.List)
 	 */
 	@Override
@@ -69,9 +69,35 @@ class RerollAddFeature extends AbstractFeature {
 		return output;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 59;
+		int result = 1;
+		result = prime * result + rerollAt;
+		return result;
+	}
+
+	@Override
+	public boolean equals(final Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		final RerollAddFeature other = (RerollAddFeature) obj;
+		if (rerollAt != other.rerollAt) {
+			return false;
+		}
+		return true;
+	}
+
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.lang.Object#toString()
 	 */
 	@Override

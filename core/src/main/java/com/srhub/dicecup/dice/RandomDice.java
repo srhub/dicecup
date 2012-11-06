@@ -77,4 +77,44 @@ public class RandomDice extends AbstractDice {
 		return faces;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + faces;
+		result = prime * result + ((random == null) ? 0 : random.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(final Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		final RandomDice other = (RandomDice) obj;
+		if (faces != other.faces) {
+			return false;
+		}
+		if (random == null) {
+			if (other.random != null) {
+				return false;
+			}
+		} else if (!random.equals(other.random)) {
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "RandomDice [faces=" + faces + ", "
+				+ (random != null ? "random=" + random : "") + "]";
+	}
+
 }
