@@ -34,11 +34,11 @@ public class SuccessTestTest {
 
 	@Test
 	public void test() throws RuleOfOneException {
-		final Random random = new CyclicIntegerRandom(
-				Lists.newArrayList(0, 1, 3, 4, 4));
+		final Random random = new CyclicIntegerRandom(Lists.newArrayList(0, 1,
+				3, 4, 4));
 
 		final Dice dice = new RandomDice(6, random);
-		final Cup cup = new Cup().add(dice, Features.EXPLODE_AT(6));
+		final Cup cup = Cup.add(dice, Features.EXPLODE_AT(6)).build();
 		final Roll roll = cup.roll(5);
 
 		final SuccessTest successTest = new SuccessTest();

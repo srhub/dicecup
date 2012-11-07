@@ -10,7 +10,7 @@ public class CupTest {
 
 	@Test
 	public void testWithFaces() {
-		final Cup c = new Cup().add(6);
+		final Cup c = Cup.add(6).build();
 		final Roll roll = c.roll(1);
 		final List<Integer> result = roll.all();
 
@@ -18,20 +18,14 @@ public class CupTest {
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testWithInvalidCount() {
-		final Cup c = new Cup().add(6);
-		c.roll();
-	}
-
-	@Test(expected = IllegalArgumentException.class)
 	public void testWithLesserCount() {
-		final Cup c = new Cup().add(6).add(4);
+		final Cup c = Cup.add(6).add(4).build();
 		c.roll(2);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testWithGreaterCount() {
-		final Cup c = new Cup().add(6);
+		final Cup c = Cup.add(6).build();
 		c.roll(2, 2);
 	}
 }

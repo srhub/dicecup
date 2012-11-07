@@ -19,6 +19,7 @@ import java.util.List;
 
 import com.srhub.dicecup.core.Cup;
 import com.srhub.dicecup.core.Roll;
+import com.srhub.dicecup.dice.Dices;
 import com.srhub.dicecup.systems.base.Result;
 import com.srhub.dicecup.util.Lists;
 
@@ -34,7 +35,7 @@ public class SuccessTest {
 
 	public Result<Roll> roll(final int rating, final int targetNumber)
 			throws RuleOfOneException {
-		final Roll roll = new Cup().add(rating).roll();
+		final Roll roll = Cup.add(Dices.D6).build().roll(rating);
 		return evaluate(roll, targetNumber);
 	}
 

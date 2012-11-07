@@ -33,12 +33,16 @@ import com.srhub.dicecup.features.Features;
 public class Cup {
 
 	/** The groups of dice. */
-	private final List<Group> groups = new ArrayList<Group>();
+	private final List<Group> groups;
 
 	/**
-	 * Instantiates a new dice cup.
+	 * Instantiates a new cup.
+	 *
+	 * @param groups
+	 *            the groups
 	 */
-	public Cup() {
+	private Cup(final List<Group> groups) {
+		this.groups = groups;
 	}
 
 	/**
@@ -48,7 +52,7 @@ public class Cup {
 	 *            of faces
 	 * @return this cup
 	 */
-	public Cup add(final int faces) {
+	public static Builder add(final int faces) {
 		return add(new RandomDice(faces));
 	}
 
@@ -62,7 +66,7 @@ public class Cup {
 	 *            number of faces
 	 * @return this cup
 	 */
-	public Cup add(final String id, final int faces) {
+	public static Builder add(final String id, final int faces) {
 		return add(id, new RandomDice(faces));
 	}
 
@@ -78,7 +82,8 @@ public class Cup {
 	 *            the features to transform the dice roll
 	 * @return this cup
 	 */
-	public Cup add(final String id, final int faces, final Feature... features) {
+	public static Builder add(final String id, final int faces,
+			final Feature... features) {
 		return add(id, new RandomDice(faces), features);
 	}
 
@@ -89,7 +94,7 @@ public class Cup {
 	 *            the dice to roll
 	 * @return this cup
 	 */
-	public Cup add(final Dice dice) {
+	public static Builder add(final Dice dice) {
 		return add(null, dice);
 	}
 
@@ -103,7 +108,7 @@ public class Cup {
 	 *            the dice to roll
 	 * @return this cup
 	 */
-	public Cup add(final String id, final Dice dice) {
+	public static Builder add(final String id, final Dice dice) {
 		return add(id, dice, new Feature[] {});
 	}
 
@@ -117,7 +122,7 @@ public class Cup {
 	 *            the features to transform the dice roll
 	 * @return this cup
 	 */
-	public Cup add(final int faces, final Feature... features) {
+	public static Builder add(final int faces, final Feature... features) {
 		return add(null, faces, features);
 	}
 
@@ -131,7 +136,7 @@ public class Cup {
 	 *            the features
 	 * @return this cup
 	 */
-	public Cup add(final Dice dice, final Feature... features) {
+	public static Builder add(final Dice dice, final Feature... features) {
 		return add(null, dice, features);
 	}
 
@@ -147,13 +152,13 @@ public class Cup {
 	 *            the features to transform the dice roll
 	 * @return this cup
 	 */
-	public Cup add(final String id, final Dice dice, final Feature... features) {
+	public static Builder add(final String id, final Dice dice,
+			final Feature... features) {
 		for (final Feature feature : features) {
 			feature.setDice(dice);
 		}
 
-		groups.add(new Group(id, dice, features));
-		return this;
+		return new Builder(new Group(id, dice, features));
 	}
 
 	/**
@@ -161,46 +166,46 @@ public class Cup {
 	 *
 	 * @return the roll
 	 */
-	public Roll roll(final int... count) {
-		if (count.length == 0) {
-			throw new IllegalArgumentException("Not a valid count");
-		}
+	public Roll roll(final int c, final int... counts) {
 
 		final int size = groups.size();
 
-		if (count.length < size) {
+		if (counts.length < size - 1) {
 			throw new IllegalArgumentException(
 					"Count is lesser than the number of dice groups");
 		}
 
-		if (count.length > size) {
+		if (counts.length > size - 1) {
 			throw new IllegalArgumentException(
 					"Count is greater than the number of dice groups");
 		}
 
-		final Map<Group, List<Integer>> result = new HashMap<>(groups.size());
+		final Map<Group, List<Integer>> results = new HashMap<>(groups.size());
 
-		for (int i = 0; i < size; i++) {
-			final Group group = groups.get(i);
-			final List<Integer> roll = group.getDice().roll(count[i]);
-			final Feature[] features = group.getFeatures();
-			if (features.length > 0) {
-				for (final Feature feature : features) {
-					result.put(group, feature.apply(roll));
-				}
-			} else {
-				result.put(group, roll);
-			}
+		// run the first
+		addResult(results, groups.get(0), c);
+
+		// run the rest of the counts
+		for (int i = 0; i < counts.length; i++) {
+			final int count = counts[i];
+			final Group group = groups.get(i + 1);
+			addResult(results, group, count);
 		}
 
-		return new Roll(result);
+		return new Roll(results);
 	}
 
-	/**
-	 * Clear the cup.
-	 */
-	public void clear() {
-		groups.clear();
+	private void addResult(final Map<Group, List<Integer>> results,
+			final Group group, final int count) {
+		final List<Integer> roll = group.getDice().roll(count);
+		final Feature[] features = group.getFeatures();
+		if (features.length > 0) {
+			for (final Feature feature : features) {
+				results.put(group, feature.apply(roll));
+			}
+		} else {
+			results.put(group, roll);
+		}
 	}
 
 	@Override
@@ -236,6 +241,138 @@ public class Cup {
 	@Override
 	public String toString() {
 		return "Cup [" + (groups != null ? "groups=" + groups : "") + "]";
+	}
+
+	public static final class Builder {
+
+		/** The groups of dice. */
+		private final List<Group> groups = new ArrayList<Group>();
+
+		public Builder(final Group group) {
+			groups.add(group);
+		}
+
+		/**
+		 * Adds a fair dice with the given number of faces to the cup
+		 *
+		 * @param number
+		 *            of faces
+		 * @return this cup
+		 */
+		public Builder add(final int faces) {
+			return add(new RandomDice(faces));
+		}
+
+		/**
+		 * Adds a fair dice with the given number of faces to the cup that can
+		 * be identified using an <code>id</code>
+		 *
+		 * @param id
+		 *            the id of the dice group
+		 * @param faces
+		 *            number of faces
+		 * @return this cup
+		 */
+		public Builder add(final String id, final int faces) {
+			return add(id, new RandomDice(faces));
+		}
+
+		/**
+		 * Adds a fair dice with the given number of faces that transform the
+		 * roll outcome and can be identified using an <code>id</code>
+		 *
+		 * @param id
+		 *            the id of the dice group
+		 * @param faces
+		 *            number of faces
+		 * @param features
+		 *            the features to transform the dice roll
+		 * @return this cup
+		 */
+		public Builder add(final String id, final int faces,
+				final Feature... features) {
+			return add(id, new RandomDice(faces), features);
+		}
+
+		/**
+		 * Add a {@link Dice} to the cup
+		 *
+		 * @param dice
+		 *            the dice to roll
+		 * @return this cup
+		 */
+		public Builder add(final Dice dice) {
+			return add(null, dice);
+		}
+
+		/**
+		 * Add {@link Dice} to the cup that can be identified using an
+		 * <code>id</code>
+		 *
+		 * @param id
+		 *            the id of the dice group
+		 * @param dice
+		 *            the dice to roll
+		 * @return this cup
+		 */
+		public Builder add(final String id, final Dice dice) {
+			return add(id, dice, new Feature[] {});
+		}
+
+		/**
+		 * Add a fair dice with given number of faces to the cup using
+		 * {@link Features} that transform the roll outcome
+		 *
+		 * @param faces
+		 *            the faces
+		 * @param features
+		 *            the features to transform the dice roll
+		 * @return this cup
+		 */
+		public Builder add(final int faces, final Feature... features) {
+			return add(null, faces, features);
+		}
+
+		/**
+		 * Add {@link Dice} to the cup using {@link Features} that transform the
+		 * roll outcome
+		 *
+		 * @param dice
+		 *            the dice to roll
+		 * @param features
+		 *            the features
+		 * @return this cup
+		 */
+		public Builder add(final Dice dice, final Feature... features) {
+			return add(null, dice, features);
+		}
+
+		/**
+		 * Adds a {@link Dice} to the cup using {@link Features} that transform
+		 * the roll outcome and can be identified using an <code>id</code>
+		 *
+		 * @param id
+		 *            the id of the dice group
+		 * @param dice
+		 *            the dice to roll
+		 * @param features
+		 *            the features to transform the dice roll
+		 * @return this cup
+		 */
+		public Builder add(final String id, final Dice dice,
+				final Feature... features) {
+			for (final Feature feature : features) {
+				feature.setDice(dice);
+			}
+
+			groups.add(new Group(id, dice, features));
+			return this;
+		}
+
+		public Cup build() {
+			return new Cup(groups);
+		}
+
 	}
 
 }
