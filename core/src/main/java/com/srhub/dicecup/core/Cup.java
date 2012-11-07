@@ -15,11 +15,10 @@
  */
 package com.srhub.dicecup.core;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import com.srhub.dicecup.api.Dice;
 import com.srhub.dicecup.api.Feature;
@@ -33,13 +32,8 @@ import com.srhub.dicecup.features.Features;
  */
 public class Cup {
 
-	/**
-	 * The number of sides of six sided die. Pshht: It'input six.
-	 */
-	private static final int DEFAULT_DICE = 6;
-
 	/** The groups of dice. */
-	private final Set<Group> groups = new HashSet<Group>();
+	private final List<Group> groups = new ArrayList<Group>();
 
 	/**
 	 * Instantiates a new dice cup.
@@ -48,193 +42,117 @@ public class Cup {
 	}
 
 	/**
-	 * Adds <code>d6</code> number of D6 to the cup
+	 * Adds a fair dice with the given number of faces to the cup
 	 *
-	 * @param d6
-	 *            <code>d6</code> number of D6
+	 * @param number
+	 *            of faces
 	 * @return this cup
 	 */
-	public Cup add(final int d6) {
-		return add(d6, DEFAULT_DICE);
+	public Cup add(final int faces) {
+		return add(new RandomDice(faces));
 	}
 
 	/**
-	 * Add <code>d6</code> number of D6 to the cup using {@link Features} that
-	 * transform the roll outcome
-	 *
-	 * @param d6
-	 *            <code>d6</code> number of D6
-	 * @param features
-	 *            the features to transform the dice roll
-	 * @return this cup
-	 */
-	public Cup add(final int d6, final Feature... features) {
-		return add(d6, DEFAULT_DICE, features);
-	}
-
-	/**
-	 * Add <code>d6</code> number of D6 to the cup that can be identified using
-	 * an <code>id</code>
-	 *
-	 * @param id
-	 *            the id of the dice group
-	 * @param d6
-	 *            <code>d6</code> number of D6
-	 * @return this cup
-	 */
-	public Cup add(final String id, final int d6) {
-		return add(id, d6, DEFAULT_DICE);
-	}
-
-	/**
-	 * Add <code>d6</code> number of D6 to the cup using {@link Features} that
-	 * transform the roll outcome and can be identified using an <code>id</code>
-	 *
-	 * @param id
-	 *            the id of the dice group
-	 * @param d6
-	 *            <code>d6</code> number of D6
-	 * @param features
-	 *            the features to transform the dice roll
-	 * @return this cup
-	 */
-	public Cup add(final String id, final int d6, final Feature... features) {
-		return add(id, d6, DEFAULT_DICE, features);
-	}
-
-	/**
-	 * Add <code>count</code> number of D<code>{faces}</code> to the cup
-	 *
-	 * @param count
-	 *            number of dice to roll
-	 * @param faces
-	 *            the faces of the dice to roll
-	 * @return this cup
-	 */
-	public Cup add(final int count, final int faces) {
-		return add(null, count, faces);
-	}
-
-	/**
-	 * Add <code>count</code> number of {@link Dice}
-	 *
-	 * @param count
-	 *            number of dice to roll
-	 * @param dice
-	 *            the dice to roll
-	 * @return this cup
-	 */
-	public Cup add(final int count, final Dice dice) {
-		return add(null, count, dice);
-	}
-
-	/**
-	 * Add <code>count</code> number of D<code>{faces}</code> to the cup that
-	 * can be identified using an <code>id</code>
-	 *
-	 *
-	 * @param id
-	 *            the id of the dice group
-	 * @param count
-	 *            number of dice to roll
-	 * @param faces
-	 *            the faces
-	 * @return this cup
-	 */
-	public Cup add(final String id, final int count, final int faces) {
-		return add(id, count, faces, new Feature[] {});
-	}
-
-	/**
-	 * Add <code>count</code> number of {@link Dice} to the cup that can be
+	 * Adds a fair dice with the given number of faces to the cup that can be
 	 * identified using an <code>id</code>
 	 *
 	 * @param id
 	 *            the id of the dice group
-	 * @param count
-	 *            number of dice to roll
+	 * @param faces
+	 *            number of faces
+	 * @return this cup
+	 */
+	public Cup add(final String id, final int faces) {
+		return add(id, new RandomDice(faces));
+	}
+
+	/**
+	 * Adds a fair dice with the given number of faces that transform the roll
+	 * outcome and can be identified using an <code>id</code>
+	 *
+	 * @param id
+	 *            the id of the dice group
+	 * @param faces
+	 *            number of faces
+	 * @param features
+	 *            the features to transform the dice roll
+	 * @return this cup
+	 */
+	public Cup add(final String id, final int faces, final Feature... features) {
+		return add(id, new RandomDice(faces), features);
+	}
+
+	/**
+	 * Add a {@link Dice} to the cup
+	 *
 	 * @param dice
 	 *            the dice to roll
 	 * @return this cup
 	 */
-	public Cup add(final String id, final int count, final Dice dice) {
-		return add(id, count, dice, new Feature[] {});
+	public Cup add(final Dice dice) {
+		return add(null, dice);
 	}
 
 	/**
-	 * Add <code>count</code> number of D<code>{faces}</code> to the cup using
+	 * Add {@link Dice} to the cup that can be identified using an
+	 * <code>id</code>
+	 *
+	 * @param id
+	 *            the id of the dice group
+	 * @param dice
+	 *            the dice to roll
+	 * @return this cup
+	 */
+	public Cup add(final String id, final Dice dice) {
+		return add(id, dice, new Feature[] {});
+	}
+
+	/**
+	 * Add a fair dice with given number of faces to the cup using
 	 * {@link Features} that transform the roll outcome
 	 *
-	 * @param count
-	 *            number of dice to roll
 	 * @param faces
 	 *            the faces
 	 * @param features
 	 *            the features to transform the dice roll
 	 * @return this cup
 	 */
-	public Cup add(final int count, final int faces, final Feature... features) {
-		return add(null, count, faces, features);
+	public Cup add(final int faces, final Feature... features) {
+		return add(null, faces, features);
 	}
 
 	/**
-	 * Add <code>count</code> number of {@link Dice} to the cup using
-	 * {@link Features} that transform the roll outcome
+	 * Add {@link Dice} to the cup using {@link Features} that transform the
+	 * roll outcome
 	 *
-	 * @param count
-	 *            number of dice to roll
 	 * @param dice
 	 *            the dice to roll
 	 * @param features
 	 *            the features
 	 * @return this cup
 	 */
-	public Cup add(final int count, final Dice dice, final Feature... features) {
-		return add(null, count, dice, features);
+	public Cup add(final Dice dice, final Feature... features) {
+		return add(null, dice, features);
 	}
 
 	/**
-	 * Add <code>count</code> number of D<code>{faces}</code> to the cup using
-	 * {@link Features} that transform the roll outcome and can be identified
-	 * using an <code>id</code>
+	 * Adds a {@link Dice} to the cup using {@link Features} that transform the
+	 * roll outcome and can be identified using an <code>id</code>
 	 *
 	 * @param id
 	 *            the id of the dice group
-	 * @param count
-	 *            number of dice to roll
-	 * @param faces
-	 *            the faces
-	 * @param features
-	 *            the features to transform the dice roll
-	 * @return this cup
-	 */
-	public Cup add(final String id, final int count, final int faces,
-			final Feature... features) {
-		return add(id, count, new RandomDice(faces), features);
-	}
-
-	/**
-	 * Add <code>count</code> number of {@link Dice} to the cup using
-	 * {@link Features} that transform the roll outcome and can be identified
-	 * using an <code>id</code>
-	 *
-	 * @param id
-	 *            the id of the dice group
-	 * @param count
-	 *            number of dice to roll
 	 * @param dice
 	 *            the dice to roll
 	 * @param features
 	 *            the features to transform the dice roll
 	 * @return this cup
 	 */
-	public Cup add(final String id, final int count, final Dice dice,
-			final Feature... features) {
+	public Cup add(final String id, final Dice dice, final Feature... features) {
 		for (final Feature feature : features) {
 			feature.setDice(dice);
 		}
 
-		groups.add(new Group(id, dice, count, features));
+		groups.add(new Group(id, dice, features));
 		return this;
 	}
 
@@ -243,15 +161,29 @@ public class Cup {
 	 *
 	 * @return the roll
 	 */
-	public Roll roll() {
+	public Roll roll(final int... count) {
+		if (count.length == 0) {
+			throw new IllegalArgumentException("Not a valid count");
+		}
+
+		final int size = groups.size();
+
+		if (count.length < size) {
+			throw new IllegalArgumentException(
+					"Count is lesser than the number of dice groups");
+		}
+
+		if (count.length > size) {
+			throw new IllegalArgumentException(
+					"Count is greater than the number of dice groups");
+		}
 
 		final Map<Group, List<Integer>> result = new HashMap<>(groups.size());
 
-		for (final Group group : groups) {
-			final List<Integer> roll = group.getDice().roll(group.getCount());
-
+		for (int i = 0; i < size; i++) {
+			final Group group = groups.get(i);
+			final List<Integer> roll = group.getDice().roll(count[i]);
 			final Feature[] features = group.getFeatures();
-
 			if (features.length > 0) {
 				for (final Feature feature : features) {
 					result.put(group, feature.apply(roll));

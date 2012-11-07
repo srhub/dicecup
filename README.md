@@ -1,25 +1,33 @@
 # README #
 
-Per default **DiceCup** uses _D6_. 
+Per default **DiceCup**. 
 
-	// add 5d6 to the cup
-	DiceCup cup = new DiceCup().add(5);
+	// add d6 to the cup
+	Cup cup = new Cup().add(6);
 
 But you can also define the number of sides
 
-	// add 3d6 and 2d20 to the cup
-	DiceCup cup = new DiceCup().add(3,6).add(2,20); 
+	// add d6 and d20 to the cup
+	Cup cup = new Cup().add(6).add(20); 
 
 You can also name the dice groups you are adding to the cup
 
-	DiceCup cup;
-	cup = new DiceCup().add("skill", 3).add("skill", 2);
-	cup = new DiceCup().add("skill",3,6).add("pool",2,6);
+	Cup cup;
+	// add groups named "skill", "pool" bot with d6 
+	cup = new Cup().add("skill",6).add("pool",6);
 
-This is how you roll
+This is how you roll (all results are of course random, these are just examples) a single dice
 
-	Roll roll = cup.roll();
-	// of course the results are random, this is an example
+	Cup cup = new Cup().add(20);
+	// roll 1d20
+	Roll roll = cup.roll(1)
+	roll.all(); 			// [20]
+
+Or if you added multiple dice to the cup
+
+	Cup cup = new Cup().add("skill",6).add("pool",6);
+	// roll 3d6 for "skill", 2d6 for "pool" 
+	Roll roll = cup.roll(3,2)
 	roll.all(); 			// [1,3,4,5,5]
 	roll.byId("skill");		// [3,4,5]
 	roll.byId("pool");		// [1,5]
@@ -43,6 +51,6 @@ This is how you roll
 
 ## Loaded Dice ##
 
-Sometimes you need a loaded dice. *DiceCup* allows you to supply your your random number generator for each dice. An example can be found in `com.srhub.dicecup.extra.CyclicIntegerRandom` that cycles through a supplied list of integer to generate integers. 
+Sometimes you need a loaded dice. *DiceCup* allows you to supply your random number generator for each dice. An example can be found in `com.srhub.dicecup.extra.CyclicIntegerRandom` that cycles through a supplied list of integer to generate integers. 
 
 If you need a loaded dice with preset discrete probabilities for each die face you can use `com.srhub.dicecup.dice.LoadedDice`.

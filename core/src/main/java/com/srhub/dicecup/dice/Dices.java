@@ -18,25 +18,31 @@ package com.srhub.dicecup.dice;
 import com.srhub.dicecup.api.Dice;
 
 /**
- * A fair D12.
+ * Standard dice.
  *
  * @author Oliver Schrenk <oliver.schrenk@gmail.com>
  */
-public class D12 {
+public class Dices {
 
-	/** The Constant FACES. */
-	private static final int FACES = 12;
+	/** A D4. */
+	public static final Dice D4 = new RandomDice(4);
 
-	/** The Constant D12. */
-	public static final Dice D12 = new RandomDice(FACES);
+	/** A D6. */
+	public static final Dice D6 = new RandomDice(6);
 
-	/**
-	 * Roll the dice.
-	 *
-	 * @return the int
-	 */
-	public static int roll() {
-		return D12.roll();
-	}
+	/** A D8. */
+	public static final Dice D8 = new RandomDice(8);
+
+	/** A D10. */
+	public static final Dice D10 = new RandomDice(10);
+
+	/** A D12. */
+	public static final Dice D12 = new RandomDice(12);
+
+	/** A D20. */
+	public static final Dice D20 = new RandomDice(20);
+
+	/** A D100. */
+	public static final Dice D100 = new RandomDice(100);
 
 }

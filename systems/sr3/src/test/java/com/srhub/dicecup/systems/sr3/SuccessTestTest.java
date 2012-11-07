@@ -38,8 +38,8 @@ public class SuccessTestTest {
 				Lists.newArrayList(0, 1, 3, 4, 4));
 
 		final Dice dice = new RandomDice(6, random);
-		final Cup cup = new Cup().add(5, dice, Features.EXPLODE_AT(6));
-		final Roll roll = cup.roll();
+		final Cup cup = new Cup().add(dice, Features.EXPLODE_AT(6));
+		final Roll roll = cup.roll(5);
 
 		final SuccessTest successTest = new SuccessTest();
 
