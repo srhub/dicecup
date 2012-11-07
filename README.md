@@ -51,6 +51,6 @@ Or if you added multiple dice to the cup
 
 ## Loaded Dice ##
 
-Sometimes you need a loaded dice. *DiceCup* allows you to supply your random number generator for each dice. An example can be found in `com.srhub.dicecup.extra.CyclicIntegerRandom` that cycles through a supplied list of integer to generate integers. 
+Sometimes you need a loaded dice. *DiceCup* allows you to supply your random number generator for each dice. An example can be found in `com.srhub.dicecup.util.CyclicIntegerRandom` that cycles through a supplied list of integer to generate integers. 
 
 If you need a loaded dice with preset discrete probabilities for each die face you can use `com.srhub.dicecup.dice.LoadedDice`.

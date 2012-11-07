@@ -26,9 +26,9 @@ import com.srhub.dicecup.api.Dice;
 import com.srhub.dicecup.core.Cup;
 import com.srhub.dicecup.core.Roll;
 import com.srhub.dicecup.dice.RandomDice;
-import com.srhub.dicecup.extra.CyclicIntegerRandom;
 import com.srhub.dicecup.features.Features;
 import com.srhub.dicecup.systems.base.Result;
+import com.srhub.dicecup.util.CyclicIntegerRandom;
 
 public class SuccessTestTest {
 

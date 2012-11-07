@@ -10,6 +10,7 @@ import org.junit.Test;
 import com.google.common.collect.Lists;
 import com.srhub.dicecup.api.Dice;
 import com.srhub.dicecup.dice.RandomDice;
+import com.srhub.dicecup.util.CyclicIntegerRandom;
 
 public class CyclicIntegerRandomTest {
 
