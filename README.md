@@ -41,8 +41,8 @@ This is how you roll
 - _Reroll Replace_ Reroll all dice with the given number of pips and replace the old result
 - _Explode_  Reroll dice with given number of pips and cumulatively add dice result to old dice roll result.
 
-## Random and Loaded Dice ##
+## Loaded Dice ##
 
-Per default a dice roll is randomized using `java.util.Random`. You can also supply your own implementation of a `Random` number generator, such as `com.srhub.dicecup.dice.CyclicRandom` that cycles through predefined values.
+Sometimes you need a loaded dice. *DiceCup* allows you to supply your your random number generator for each dice. An example can be found in `com.srhub.dicecup.extra.CyclicIntegerRandom` that cycles through a supplied list of integer to generate integers. 
 
 If you need a loaded dice with preset discrete probabilities for each die face you can use `com.srhub.dicecup.dice.LoadedDice`.

@@ -19,13 +19,15 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class CyclicRandom.
+ * Generate a cyclic stream of integer.
+ * <p>
+ * {@link CyclicIntegerRandom#next(int)} generates a number cycling through the
+ * input list of integer by shifting left.
  *
  * @author Oliver Schrenk <oliver.schrenk@gmail.com>
  */
-public class CyclicRandom extends Random {
+public class CyclicIntegerRandom extends Random {
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 4509714508645300940L;
@@ -39,7 +41,7 @@ public class CyclicRandom extends Random {
 	 * @param numbers
 	 *            the numbers
 	 */
-	public CyclicRandom(final List<Integer> numbers) {
+	public CyclicIntegerRandom(final List<Integer> numbers) {
 		// shift left once so that the first #next return first index of list
 		Collections.rotate(numbers, 1);
 		this.numbers = numbers;
@@ -75,7 +77,7 @@ public class CyclicRandom extends Random {
 		if (getClass() != obj.getClass()) {
 			return false;
 		}
-		final CyclicRandom other = (CyclicRandom) obj;
+		final CyclicIntegerRandom other = (CyclicIntegerRandom) obj;
 		if (numbers == null) {
 			if (other.numbers != null) {
 				return false;
@@ -88,8 +90,8 @@ public class CyclicRandom extends Random {
 
 	@Override
 	public String toString() {
-		return "CyclicRandom [" + (numbers != null ? "numbers=" + numbers : "")
-				+ "]";
+		return "CyclicIntegerRandom ["
+				+ (numbers != null ? "numbers=" + numbers : "") + "]";
 	}
 
 }
