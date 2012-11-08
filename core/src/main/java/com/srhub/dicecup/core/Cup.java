@@ -166,6 +166,15 @@ public class Cup {
 	 *
 	 * @return the roll
 	 */
+	public Roll roll(final int c) {
+		return roll(c, new int[0]);
+	}
+
+	/**
+	 * Roll the dice.
+	 *
+	 * @return the roll
+	 */
 	public Roll roll(final int c, final int... counts) {
 
 		final int size = groups.size();

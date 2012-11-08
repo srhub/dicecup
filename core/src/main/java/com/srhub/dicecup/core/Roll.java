@@ -98,6 +98,24 @@ public class Roll {
 	}
 
 	/**
+	 * Count the dice showing the given number of pips.
+	 *
+	 * @return number of dice showing the given number of pips.
+	 */
+	public int count(final int pips) {
+		int count = 0;
+		for (final Group group : groups) {
+			final List<Integer> list = result.get(group);
+			for (final int i : list) {
+				if (i == pips) {
+					count++;
+				}
+			}
+		}
+		return count;
+	}
+
+	/**
 	 * Sum of all dice.
 	 *
 	 * @return the sum of all dice.
@@ -115,9 +133,9 @@ public class Roll {
 	}
 
 	/**
-	 * Number of all dice in the orginary dice cup
+	 * Number of all dice in the dice cup
 	 *
-	 * @return the int
+	 * @return the number of dice
 	 */
 	public int size() {
 		int sum = 0;

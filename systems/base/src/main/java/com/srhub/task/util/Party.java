@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.srhub.dicecup.systems.base;
+package com.srhub.task.util;
 
 /**
- * Defines parties that can be involved in a competing dice roll
+ * Defines parties that can be involved in a competion;
  *
  * @author Oliver Schrenk <oliver.schrenk@gmail.com>
  *
@@ -30,14 +30,19 @@ public enum Party {
 	ATTACKER,
 
 	/**
+	 * Doesn't necessarily have to be a non player character. Used to define the
+	 * defending side involved in a competing dice roll.
+	 */
+	DEFENDER,
+
+	/**
 	 * No party.
 	 */
 	NONE,
 
 	/**
-	 * Doesn't necessarily have to be a non player character. Used to define the
-	 * defending side involved in a competing dice roll.
+	 * Both parties.
 	 */
-	DEFENDER;
+	BOTH;
 
 }

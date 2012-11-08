@@ -16,9 +16,9 @@
 package com.srhub.dicecup.systems.sr3;
 
 import com.srhub.dicecup.core.Roll;
-import com.srhub.dicecup.systems.base.Party;
-import com.srhub.dicecup.systems.base.Result;
-import com.srhub.dicecup.systems.base.Rolls;
+import com.srhub.task.core.Result;
+import com.srhub.task.core.Rolls;
+import com.srhub.task.util.Party;
 
 /**
  * A success contest is used when two characters compete against each other, but

@@ -17,27 +17,21 @@ package com.srhub.dicecup.systems.sr3;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.Random;
-
 import org.junit.Test;
 
-import com.google.common.collect.Lists;
 import com.srhub.dicecup.api.Dice;
 import com.srhub.dicecup.core.Cup;
 import com.srhub.dicecup.core.Roll;
-import com.srhub.dicecup.dice.RandomDice;
+import com.srhub.dicecup.dice.CyclicDice;
 import com.srhub.dicecup.features.Features;
-import com.srhub.dicecup.systems.base.Result;
-import com.srhub.dicecup.util.CyclicIntegerRandom;
+import com.srhub.task.core.Result;
 
 public class SuccessTestTest {
 
 	@Test
 	public void test() throws RuleOfOneException {
-		final Random random = new CyclicIntegerRandom(Lists.newArrayList(0, 1,
-				3, 4, 4));
 
-		final Dice dice = new RandomDice(6, random);
+		final Dice dice = CyclicDice.add(1, 2, 4, 5, 5).build(6);
 		final Cup cup = Cup.add(dice, Features.EXPLODE_AT(6)).build();
 		final Roll roll = cup.roll(5);
 

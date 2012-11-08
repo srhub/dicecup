@@ -20,8 +20,8 @@ import java.util.List;
 import com.srhub.dicecup.core.Cup;
 import com.srhub.dicecup.core.Roll;
 import com.srhub.dicecup.dice.Dices;
-import com.srhub.dicecup.systems.base.Result;
 import com.srhub.dicecup.util.Lists;
+import com.srhub.task.core.Result;
 
 /**
  * A success test determines if a character can accomplish a task and how well
