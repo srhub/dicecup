@@ -90,17 +90,17 @@ Shadowrun 3 offers four different kinds of tests that might be good archetypes
 
 **Open Test** Doesn't use a target number and just returns the highest result
 	
-	OpenTest openTest = OpenTest.failsOn().build();
+	OpenTest openTest = OpenTest.failsOn(1).build();
 	int result = openTest.evaluate(roll); // internally uses roll.sum()
 
 **Success Test** Roll a number of dice equal to the skill/attribute/... rating against a target number.
 
-	SuccessTest successTest = SuccessTest.failsOn().build();
+	SuccessTest successTest = SuccessTest.failsOn(1).build();
 	int result = successTest.evaluate(roll, target)
 
 **Opposed Test** Two involved parties roll success test against each other using the skill of the opponent as the target number.
 
-	OpposedTest opposedTest = OpposedTest.failsOn().build();
+	OpposedTest opposedTest = OpposedTest.failsOn(1).build();
 	int result = opposedTest.evaluate(rollA, targetA, rollB, targetB);
 
 Positive result map to netto successes for the character that made `rollA`, (normally a player character) while negative netto successes map to succeses by the character that made `rollB` (normally an NPC).
@@ -134,3 +134,24 @@ where `CRITICAL` is a `String` or an `Enum`
 	result.getFails();
 
 This solution feels kind of clunky. In addition this would also mean that for each different test (open, success, opposed) that there is a different result object and that game systems that don't include the idea of critical hits or misses would get an object with methods back that just aren't important. Throwing exceptions has the advantage that it can be used as a building block. The most popular game systems can be  implemented as examples and can offer more specific APIs.
+
+### Task API ###
+
+I think the API of both, `core` and `test` are taking shape, and are going to be good building blocks. But also I can see a more high level approach using `core` and `test`.
+
+	SuccessTask succesTask = new SuccessTask(cup, successTest);
+	succesTask.roll(target, count,...)
+
+While `core` and `test` are offering a low level game mechanics API, `task` creates building blocks for specific games. 
+
+### Name change ###
+
+Nearing the completion of `test` API and already conceptualizing the `task` API, I think a change of the name is in order as DiceCup doesn't encompasses the scope of the project any more. I also somewhat dissatisfied with the umbrella group and package being `com.srhub` as `srhub` seems to be Shadowrun centric but then again, SHadowrun was the motivating factor. Maybe I keep `srhub` as the umbrella organization on [Github](https://github.com/) but change the group id of the maven artifact to something else.
+
+**Brainstorming**
+
+- Game Mechanics
+- Dice Mechanics
+- Dice Monkey
+- Dice, Tests & Tasks
+- 
