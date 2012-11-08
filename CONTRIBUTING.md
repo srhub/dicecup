@@ -154,4 +154,22 @@ Nearing the completion of `test` API and already conceptualizing the `task` API,
 - Dice Mechanics
 - Dice Monkey
 - Dice, Tests & Tasks
-- 
+
+### Cup Features ###
+
+The example in the `README.md` about the magic sword made me think about the Cup API. 
+
+	import static com.srhub.dicecup.dice.Dices.*;
+	...
+	Cup cup = Cup.add(D6).add(D4, Features.ADD_CONSTANT(2)).build();
+	cup.roll(1,1);	// 
+
+It would better from the users perspective to add a constant to the cup and not to a specific dice group, like so
+	
+	import static com.srhub.dicecup.dice.Dices.*;
+	...
+	Cup cup = Cup.add(D6).add(D4).build(Features.ADD_CONSTANT(2));
+
+### Reroll a group ###
+
+A new feature. Be able to reroll a dice group.

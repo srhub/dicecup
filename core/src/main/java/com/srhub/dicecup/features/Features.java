@@ -17,9 +17,8 @@ package com.srhub.dicecup.features;
 
 import com.srhub.dicecup.api.Feature;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class Features.
+ * Transform dice throws.
  *
  * @author Oliver Schrenk <oliver.schrenk@gmail.com>
  */
