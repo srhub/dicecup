@@ -41,6 +41,18 @@ Each dice group can also be transformed using a `Feature`.
 
 ### Example scenarios ### 
 
+Roll `1d5`
+
+	Cup cup = Cup.add(5).build();
+	cup.roll(1);
+
+But you can also simulate a `d5` by rerolling a `d6`if the result is `6`
+
+	Cup cup = Cup.add(6, Feature.REROLL_AT(6)).build();
+	cup.roll(1);
+
+The D20 system 
+
 You have a magic sword that makes `1D6+1D4+2` damage. This can be defined as the following dice cup:
 
 	Cup cup = Cup.add(Dices.D6).add(Dices.D4, Features.ADD_CONSTANT(2));
