@@ -170,6 +170,30 @@ It would better from the users perspective to add a constant to the cup and not 
 	...
 	Cup cup = Cup.add(D6).add(D4).build(Features.ADD_CONSTANT(2));
 
+The question then is to what the feature is applied. To each die, to each dice group, or to the cup? Thinking along this line leads to thinking about differentiating features into die, dice group and cup features, which may also lead to some interesting object oriented interface designs.
+
 ### Reroll a group ###
 
 A new feature. Be able to reroll a dice group.
+
+## Appendix ##
+
+### Dice Systems ###
+
+- [List of Role-playing game systems](http://en.wikipedia.org/wiki/Role-playing_game_system). Wikipedia.
+
+The most important systems
+
+- Dnd
+- Sr3
+- Sr4
+- d20
+- D6
+- Gurps
+- Fudge
+
+
+### Dice Mechanics ###
+
+- [A Treatise on Different Dice-rolling Mechanics in RPGs](http://rpg-design.wikidot.com/evaluation). A qualitative analysis of dice-mechanics for role-playing systems.
+- [Troll](http://www.diku.dk/~torbenm/Troll/). A language for specifying dice-roll mechanisms.
