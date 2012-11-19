@@ -1,4 +1,4 @@
-package com.srhub.test.core;
+package com.srhub.task.core;
 
 import static org.junit.Assert.assertEquals;
 
@@ -9,10 +9,12 @@ import com.srhub.dicecup.api.Dice;
 import com.srhub.dicecup.core.Cup;
 import com.srhub.dicecup.core.Roll;
 import com.srhub.dicecup.dice.CyclicDice;
-import com.srhub.test.api.CriticalHitException;
-import com.srhub.test.api.SuccessTest;
+import com.srhub.task.api.CriticalHitException;
+import com.srhub.task.api.SuccessTest;
+import com.srhub.task.core.Tests;
+import com.srhub.task.core.DefaultSuccessTest.Result;
 
-public class BasicSuccessTestTest {
+public class DefaultSuccessTestTest {
 
 	private Roll d6roll;
 
@@ -25,8 +27,8 @@ public class BasicSuccessTestTest {
 
 	@Test
 	public void testBase() {
-		final SuccessTest<Integer> base = Tests.newBasicSuccessTest().build();
-		final int actualResult = base.evaluate(d6roll, 4);
+		final SuccessTest<Result> base = Tests.newSuccessTest().build();
+		final int actualResult = base.evaluate(d6roll, 4).getSuccesses().size();
 		final int expectedResult = 3;
 
 		assertEquals(expectedResult, actualResult);
@@ -34,9 +36,9 @@ public class BasicSuccessTestTest {
 
 	@Test
 	public void testNetto() {
-		final SuccessTest<Integer> base = Tests.newBasicSuccessTest().failOn(1)
+		final SuccessTest<Result> base = Tests.newSuccessTest().failOn(1)
 				.netto().build();
-		final int actualResult = base.evaluate(d6roll, 4);
+		final int actualResult = base.evaluate(d6roll, 4).getSuccesses().size();
 		// d6roll includes one `1` => 3 - 1 = 2 successes
 		final int expectedResult = 2;
 		assertEquals(expectedResult, actualResult);
@@ -48,7 +50,7 @@ public class BasicSuccessTestTest {
 		final Cup d20Cup = Cup.add(d20).build();
 		final Roll roll = d20Cup.roll(5);
 
-		final SuccessTest<Integer> base = Tests.newBasicSuccessTest()
+		final SuccessTest<Result> base = Tests.newSuccessTest()
 				.criticalHitOn(20).build();
 		base.evaluate(roll, 5);
 	}
@@ -59,7 +61,7 @@ public class BasicSuccessTestTest {
 		final Cup d20Cup = Cup.add(d20).build();
 		final Roll roll = d20Cup.roll(5);
 
-		final SuccessTest<Integer> base = Tests.newBasicSuccessTest()
+		final SuccessTest<Result> base = Tests.newSuccessTest()
 				.criticalHitOn(20).build();
 		base.evaluate(roll, 5);
 	}
@@ -70,7 +72,7 @@ public class BasicSuccessTestTest {
 		final Cup d20Cup = Cup.add(d20).build();
 		final Roll roll = d20Cup.roll(5);
 
-		final SuccessTest<Integer> base = Tests.newBasicSuccessTest()
+		final SuccessTest<Result> base = Tests.newSuccessTest()
 				.criticalHitOn("", 20, 0.25).build();
 		base.evaluate(roll, 5);
 	}

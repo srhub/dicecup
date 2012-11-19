@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.srhub.test.core;
+package com.srhub.task.core;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -21,12 +21,12 @@ import java.util.List;
 
 import com.srhub.dicecup.core.Roll;
 import com.srhub.dicecup.util.Lists;
-import com.srhub.test.api.CriticalHitException;
-import com.srhub.test.api.CriticalMissException;
-import com.srhub.test.api.GlitchException;
-import com.srhub.test.api.OpenTest;
-import com.srhub.test.api.OpposedTest;
-import com.srhub.test.api.SuccessTest;
+import com.srhub.task.api.CriticalHitException;
+import com.srhub.task.api.CriticalMissException;
+import com.srhub.task.api.GlitchException;
+import com.srhub.task.api.OpenTest;
+import com.srhub.task.api.OpposedTest;
+import com.srhub.task.api.SuccessTest;
 
 /**
  * Build {@link OpenTest}s, {@link OpposedTest}, and {@link SuccessTest}s
@@ -40,56 +40,29 @@ public class Tests {
 	}
 
 	/**
-	 * Build a new basic open test.
+	 * New default open test.
 	 *
 	 * @return the open test
 	 */
-	public static OpenTest<Integer> newBasicOpenTest() {
-		return new BasicOpenTest();
+	public static OpenTest<DefaultOpenTest.Result> newOpenTest() {
+		return new DefaultOpenTest();
 	}
 
 	/**
-	 * New detailed open test.
-	 *
-	 * @return the open test
-	 */
-	public static OpenTest<OpenTestResult> newDetailedOpenTest() {
-		return new DetailedOpenTest();
-	}
-
-	/**
-	 * Build a new basic success test.
-	 *
-	 * @return the success test builder
-	 */
-	public static BasicSuccessTestBuilder newBasicSuccessTest() {
-		return new BasicSuccessTestBuilder();
-	}
-
-	/**
-	 * New detailed success test.
+	 * New default success test.
 	 *
 	 * @return the detailed success test builder
 	 */
-	public static DetailedSuccessTestBuilder newDetailedSuccessTest() {
+	public static DetailedSuccessTestBuilder newSuccessTest() {
 		return new DetailedSuccessTestBuilder();
 	}
 
 	/**
-	 * Build a new basic opposed test.
-	 *
-	 * @return the opposed test builder
-	 */
-	public static BasicOpposedTestBuilder newBasicOpposedTest() {
-		return new BasicOpposedTestBuilder();
-	}
-
-	/**
-	 * New detailed opposed test.
+	 * New default opposed test.
 	 *
 	 * @return the detailed opposed test builder
 	 */
-	public static DetailedOpposedTestBuilder newDetailedOpposedTest() {
+	public static DetailedOpposedTestBuilder newOpposedTest() {
 		return new DetailedOpposedTestBuilder();
 	}
 
@@ -260,31 +233,17 @@ public class Tests {
 
 	}
 
-	public static final class BasicSuccessTestBuilder extends
-			AbstractTestBuilder<SuccessTest<Integer>> {
-
-		/*
-		 * (non-Javadoc)
-		 *
-		 * @see com.srhub.test.core.Tests.Builder#build()
-		 */
-		@Override
-		public SuccessTest<Integer> build() {
-			return new BasicSuccessTest(netto, criticials, failFunction);
-		}
-	}
-
 	public static final class DetailedSuccessTestBuilder extends
-			AbstractTestBuilder<SuccessTest<SuccessTestResult>> {
+			AbstractTestBuilder<SuccessTest<DefaultSuccessTest.Result>> {
 
 		/*
 		 * (non-Javadoc)
 		 *
-		 * @see com.srhub.test.core.Tests.Builder#build()
+		 * @see com.srhub.task.core.Tests.Builder#build()
 		 */
 		@Override
-		public SuccessTest<SuccessTestResult> build() {
-			return new DetailedSuccessTest(netto, criticials, failFunction);
+		public SuccessTest<DefaultSuccessTest.Result> build() {
+			return new DefaultSuccessTest(netto, criticials, failFunction);
 		}
 	}
 
@@ -298,7 +257,7 @@ public class Tests {
 		 * (non-Javadoc)
 		 *
 		 * @see
-		 * com.srhub.test.core.Tests.AbstractTestBuilder#criticalHitOn(java.
+		 * com.srhub.task.core.Tests.AbstractTestBuilder#criticalHitOn(java.
 		 * lang.String, int, double)
 		 */
 		@Override
@@ -315,7 +274,7 @@ public class Tests {
 		 * (non-Javadoc)
 		 *
 		 * @see
-		 * com.srhub.test.core.Tests.AbstractTestBuilder#criticalMissOn(java
+		 * com.srhub.task.core.Tests.AbstractTestBuilder#criticalMissOn(java
 		 * .lang.String, int, double)
 		 */
 		@Override
@@ -329,26 +288,8 @@ public class Tests {
 		}
 	}
 
-	public static final class BasicOpposedTestBuilder extends
-			AbstractOpposedTestBuilder<Integer> {
-
-		/** The criticials defender. */
-		private final List<GlitchThrower> criticialsDefender = new LinkedList<>();
-
-		/*
-		 * (non-Javadoc)
-		 *
-		 * @see com.srhub.test.core.Tests.Builder#build()
-		 */
-		@Override
-		public OpposedTest<Integer> build() {
-			return new BasicOpposedTest(netto, criticials, criticialsDefender,
-					failFunction);
-		}
-	}
-
 	public static final class DetailedOpposedTestBuilder extends
-			AbstractOpposedTestBuilder<OpposedTestResult> {
+			AbstractOpposedTestBuilder<DefaultOpposedTest.Result> {
 
 		/** The criticials defender. */
 		private final List<GlitchThrower> criticialsDefender = new LinkedList<>();
@@ -356,11 +297,11 @@ public class Tests {
 		/*
 		 * (non-Javadoc)
 		 *
-		 * @see com.srhub.test.core.Tests.Builder#build()
+		 * @see com.srhub.task.core.Tests.Builder#build()
 		 */
 		@Override
-		public OpposedTest<OpposedTestResult> build() {
-			return new DetailedOpposedTest(netto, criticials,
+		public OpposedTest<DefaultOpposedTest.Result> build() {
+			return new DefaultOpposedTest(netto, criticials,
 					criticialsDefender, failFunction);
 		}
 	}
@@ -408,7 +349,7 @@ public class Tests {
 		 * (non-Javadoc)
 		 *
 		 * @see
-		 * com.srhub.test.core.Tests.Function#count(com.srhub.dicecup.core.Roll)
+		 * com.srhub.task.core.Tests.Function#count(com.srhub.dicecup.core.Roll)
 		 */
 		@Override
 		public List<Integer> apply(final Roll roll) {
@@ -478,7 +419,7 @@ public class Tests {
 		 * (non-Javadoc)
 		 *
 		 * @see
-		 * com.srhub.test.core.Tests.GlitchThrower#evaluate(com.srhub.dicecup
+		 * com.srhub.task.core.Tests.GlitchThrower#evaluate(com.srhub.dicecup
 		 * .core.Roll)
 		 */
 		@Override
@@ -539,7 +480,7 @@ public class Tests {
 		 * (non-Javadoc)
 		 *
 		 * @see
-		 * com.srhub.test.core.Tests.GlitchThrower#evaluate(com.srhub.dicecup
+		 * com.srhub.task.core.Tests.GlitchThrower#evaluate(com.srhub.dicecup
 		 * .core.Roll)
 		 */
 		@Override

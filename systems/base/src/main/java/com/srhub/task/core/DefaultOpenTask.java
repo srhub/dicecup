@@ -18,15 +18,15 @@ package com.srhub.task.core;
 import com.srhub.dicecup.core.Cup;
 import com.srhub.dicecup.core.Roll;
 import com.srhub.task.api.OpenTask;
-import com.srhub.test.api.OpenTest;
+import com.srhub.task.api.OpenTest;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class BasicOpenTask.
+ * The Class DefaultOpenTask.
  *
  * @author Oliver Schrenk <oliver.schrenk@gmail.com>
  */
-public class BasicOpenTask implements OpenTask<Integer> {
+public class DefaultOpenTask implements OpenTask<DefaultOpenTest.Result> {
 
 	/** The empty array. */
 	public static int[] EMPTY_ARRAY = new int[] {};
@@ -35,7 +35,7 @@ public class BasicOpenTask implements OpenTask<Integer> {
 	Cup cup;
 
 	/** The open test. */
-	OpenTest<Integer> openTest;
+	OpenTest<DefaultOpenTest.Result> openTest;
 
 	/**
 	 * Instantiates a new open task.
@@ -45,14 +45,15 @@ public class BasicOpenTask implements OpenTask<Integer> {
 	 * @param openTest
 	 *            the open test
 	 */
-	public BasicOpenTask(final Cup cup, final OpenTest<Integer> openTest) {
+	public DefaultOpenTask(final Cup cup,
+			final OpenTest<DefaultOpenTest.Result> openTest) {
 		super();
 		this.cup = cup;
 		this.openTest = openTest;
 	}
 
 	@Override
-	public Integer evaluate(final int c, final int... count) {
+	public DefaultOpenTest.Result evaluate(final int c, final int... count) {
 		final Roll roll = cup.roll(c, count);
 		return openTest.evaluate(roll);
 	}
