@@ -16,9 +16,9 @@
 package com.srhub.dicecup.systems.sr3;
 
 import com.srhub.dicecup.core.Roll;
-import com.srhub.task.core.Result;
-import com.srhub.task.core.Rolls;
-import com.srhub.task.util.Party;
+import com.srhub.task.util.Result;
+import com.srhub.task.util.Rolls;
+import com.srhub.test.core.Party;
 
 /**
  * An opposed test is used when two characters are in direct competition using

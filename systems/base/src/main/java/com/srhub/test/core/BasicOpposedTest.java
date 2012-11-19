@@ -23,17 +23,15 @@ import com.srhub.test.api.GlitchException;
 import com.srhub.test.api.MultiGlitchException;
 import com.srhub.test.api.OpposedTest;
 import com.srhub.test.api.SuccessTest;
-import com.srhub.test.core.Tests.Counter;
+import com.srhub.test.core.Tests.Function;
 import com.srhub.test.core.Tests.GlitchThrower;
 
 /**
- * The Class DefaultOpposedTest.
- *
- * GlitchException is phas to be made by user
+ * Default implementation of an {@link OpposedTest}.
  *
  * @author Oliver Schrenk <oliver.schrenk@gmail.com>
  */
-public class DefaultOpposedTest implements OpposedTest {
+public class BasicOpposedTest implements OpposedTest<Integer> {
 
 	/** The netto. */
 	private final boolean netto;
@@ -45,7 +43,7 @@ public class DefaultOpposedTest implements OpposedTest {
 	private final List<GlitchThrower> defendCriticals;
 
 	/** The fail counter. */
-	private final Counter failCounter;
+	private final Function failFunction;
 
 	/**
 	 * Instantiates a new default opposed test.
@@ -56,16 +54,16 @@ public class DefaultOpposedTest implements OpposedTest {
 	 *            the attack critcials
 	 * @param defendCriticals
 	 *            the defend criticals
-	 * @param failCounter
+	 * @param failFunction
 	 *            the fail counter
 	 */
-	protected DefaultOpposedTest(final boolean netto,
+	protected BasicOpposedTest(final boolean netto,
 			final List<GlitchThrower> attackCritcials,
-			final List<GlitchThrower> defendCriticals, final Counter failCounter) {
+			final List<GlitchThrower> defendCriticals, final Function failFunction) {
 		this.netto = netto;
 		this.attackCriticals = attackCritcials;
 		this.defendCriticals = defendCriticals;
-		this.failCounter = failCounter;
+		this.failFunction = failFunction;
 	}
 
 	/*
@@ -75,22 +73,22 @@ public class DefaultOpposedTest implements OpposedTest {
 	 * int, com.srhub.dicecup.core.Roll, int)
 	 */
 	@Override
-	public int evaluate(final Roll attackRoll, final int attackTarget,
+	public Integer evaluate(final Roll attackRoll, final int attackTarget,
 			final Roll defendRoll, final int defendTarget) {
 
-		SuccessTest attackTest = null;
-		SuccessTest defendTest = null;
+		SuccessTest<Integer> attackTest = null;
+		SuccessTest<Integer> defendTest = null;
 
 		final List<GlitchException> glitches = new LinkedList<>();
 		try {
-			attackTest = new DefaultSuccessTest(netto, attackCriticals,
-					failCounter);
+			attackTest = new BasicSuccessTest(netto, attackCriticals,
+					failFunction);
 		} catch (final GlitchException e) {
 			glitches.add(e);
 		}
 		try {
-			defendTest = new DefaultSuccessTest(netto, defendCriticals,
-					failCounter);
+			defendTest = new BasicSuccessTest(netto, defendCriticals,
+					failFunction);
 		} catch (final GlitchException e) {
 			glitches.add(e);
 		}

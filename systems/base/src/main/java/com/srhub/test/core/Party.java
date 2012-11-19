@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.srhub.task.util;
+package com.srhub.test.core;
 
 /**
  * Defines parties that can be involved in a competion;

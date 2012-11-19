@@ -15,7 +15,7 @@
  */
 package com.srhub.dicecup.systems.sr3;
 
-import com.srhub.task.util.Party;
+import com.srhub.test.core.Party;
 
 /**
  * Thrown when all dice show only a <code>1</code>. As two parties can be
