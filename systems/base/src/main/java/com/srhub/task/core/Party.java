@@ -13,29 +13,36 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.srhub.test.api;
-
-import com.srhub.dicecup.core.Roll;
+package com.srhub.task.core;
 
 /**
- * A success test determines if a character can accomplish a task and how well
- * he does it. The number of dice represents the attribute or skill rating and
- * the target number the difficulty of the task.
+ * Defines parties that can be involved in a competion;
  *
  * @author Oliver Schrenk <oliver.schrenk@gmail.com>
  *
  */
-public interface SuccessTest<T> {
+public enum Party {
 
 	/**
-	 * Returns the number of successes.
-	 *
-	 * @param roll
-	 *            the roll
-	 * @param target
-	 *            the target number
-	 * @return the number of successes
+	 * Doesn't necessarily have to be a player character. Used to define the
+	 * attacking side involved in a competing dice roll.
 	 */
-	public T evaluate(Roll roll, int target);
+	ATTACKER,
+
+	/**
+	 * Doesn't necessarily have to be a non player character. Used to define the
+	 * defending side involved in a competing dice roll.
+	 */
+	DEFENDER,
+
+	/**
+	 * No party.
+	 */
+	NONE,
+
+	/**
+	 * Both parties.
+	 */
+	BOTH;
 
 }

@@ -13,22 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.srhub.test.api;
+package com.srhub.task.api;
 
-import com.srhub.test.core.Party;
+import com.srhub.task.core.Party;
 
 /**
- * A critical miss
+ * A critical hit
  *
  * @author Oliver Schrenk <oliver.schrenk@gmail.com>
  */
-public class CriticalMissException extends GlitchException {
+public class CriticalHitException extends GlitchException {
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Instantiates a new critical miss exception.
+	 * Instantiates a new critical hit exception.
 	 *
 	 * @param id
 	 *            the id
@@ -37,13 +37,13 @@ public class CriticalMissException extends GlitchException {
 	 * @param percentage
 	 *            the percentage
 	 */
-	public CriticalMissException(final String id, final int absolute,
-			final float percentage) {
+	public CriticalHitException(final String id, final int absolute,
+			final double percentage) {
 		super(id, absolute, percentage);
 	}
 
 	/**
-	 * Instantiates a new critical miss exception.
+	 * Instantiates a new critical hit exception.
 	 *
 	 * @param id
 	 *            the id
@@ -54,8 +54,8 @@ public class CriticalMissException extends GlitchException {
 	 * @param party
 	 *            the party
 	 */
-	public CriticalMissException(final String id, final int absolute,
-			final float percentage, final Party party) {
+	public CriticalHitException(final String id, final int absolute,
+			final double percentage, final Party party) {
 		super(id, absolute, percentage, party);
 	}
 

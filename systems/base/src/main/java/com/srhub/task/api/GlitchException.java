@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.srhub.test.api;
+package com.srhub.task.api;
 
-import com.srhub.test.core.Party;
+import com.srhub.task.core.Party;
 
 /**
  * An exception that is thrown when a {@link Glitch} occurs.

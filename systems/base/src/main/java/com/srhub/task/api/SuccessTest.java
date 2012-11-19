@@ -13,27 +13,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.srhub.test.api;
+package com.srhub.task.api;
 
 import com.srhub.dicecup.core.Roll;
 
 /**
- * The open test doesn't use a target number. Instead the result might serve as
- * the target number for other tests. Only the highest result of the dice throw
- * is returned.
+ * A success test determines if a character can accomplish a task and how well
+ * he does it. The number of dice represents the attribute or skill rating and
+ * the target number the difficulty of the task.
  *
  * @author Oliver Schrenk <oliver.schrenk@gmail.com>
  *
  */
-public interface OpenTest<T> {
+public interface SuccessTest<T> {
 
 	/**
-	 * Evaluates the given dice and rolll returns the highest number thrown.
+	 * Returns the number of successes.
 	 *
 	 * @param roll
-	 *            the dice roll
-	 * @return The highest number thrown
+	 *            the roll
+	 * @param target
+	 *            the target number
+	 * @return the number of successes
 	 */
-	public T evaluate(Roll roll);
+	public T evaluate(Roll roll, int target);
 
 }

@@ -4,28 +4,29 @@ import java.util.Arrays;
 
 import com.srhub.dicecup.core.Cup;
 import com.srhub.dicecup.core.Roll;
+import com.srhub.task.api.CriticalHitException;
+import com.srhub.task.api.CriticalMissException;
+import com.srhub.task.api.MultiGlitchException;
 import com.srhub.task.api.OpposedTask;
-import com.srhub.test.api.CriticalHitException;
-import com.srhub.test.api.CriticalMissException;
-import com.srhub.test.api.MultiGlitchException;
-import com.srhub.test.api.OpposedTest;
+import com.srhub.task.api.OpposedTest;
 
-public class BasicOpposedTask implements OpposedTask<Integer> {
+public class DefaultOpposedTask implements
+		OpposedTask<DefaultOpposedTest.Result> {
 
 	private static final int[] EMPTY = {};
 
 	Cup cup;
-	OpposedTest<Integer> opposedTest;
+	OpposedTest<DefaultOpposedTest.Result> opposedTest;
 
-	public BasicOpposedTask(final Cup cup,
-			final OpposedTest<Integer> opposedTest) {
+	public DefaultOpposedTask(final Cup cup,
+			final OpposedTest<DefaultOpposedTest.Result> opposedTest) {
 		super();
 		this.cup = cup;
 		this.opposedTest = opposedTest;
 	}
 
 	@Override
-	public Integer evaluate(final int attackTarget,
+	public DefaultOpposedTest.Result evaluate(final int attackTarget,
 			final int[] attackerDiceCount, final int defendTarget,
 			final int[] defenderDiceCount) throws CriticalHitException,
 			CriticalMissException, MultiGlitchException {

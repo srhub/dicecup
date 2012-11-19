@@ -15,7 +15,7 @@
  */
 package com.srhub.dicecup.systems.sr4;
 
-import com.srhub.test.core.Party;
+import com.srhub.task.core.Party;
 
 // TODO: Auto-generated Javadoc
 /**
