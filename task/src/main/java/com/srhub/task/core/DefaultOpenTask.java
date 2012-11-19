@@ -23,7 +23,7 @@ import com.srhub.task.api.OpenTest;
 // TODO: Auto-generated Javadoc
 /**
  * The Class DefaultOpenTask.
- *
+ * 
  * @author Oliver Schrenk <oliver.schrenk@gmail.com>
  */
 public class DefaultOpenTask implements OpenTask<DefaultOpenTest.Result> {
@@ -39,7 +39,7 @@ public class DefaultOpenTask implements OpenTask<DefaultOpenTest.Result> {
 
 	/**
 	 * Instantiates a new open task.
-	 *
+	 * 
 	 * @param cup
 	 *            the cup
 	 * @param openTest
