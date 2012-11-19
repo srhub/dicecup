@@ -87,7 +87,7 @@
 
 		<dependency>
 			<groupId>com.srhub</groupId>
-			<artifactId>dicecup-systems</artifactId>
+			<artifactId>dicecup-task</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 
