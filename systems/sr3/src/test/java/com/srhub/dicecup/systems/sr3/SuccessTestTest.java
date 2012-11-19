@@ -24,7 +24,7 @@ import com.srhub.dicecup.core.Cup;
 import com.srhub.dicecup.core.Roll;
 import com.srhub.dicecup.dice.CyclicDice;
 import com.srhub.dicecup.features.Features;
-import com.srhub.task.core.Result;
+import com.srhub.task.util.Result;
 
 public class SuccessTestTest {
 

@@ -39,8 +39,19 @@ public class Lists {
 	 *            the element
 	 * @return the int
 	 */
-	public static <T> int count(final List<T> list, final T element) {
-		return Collections.frequency(list, element);
+	public static <T extends Comparable<T>> List<T> equals(final List<T> list,
+			final T target) {
+
+		final List<T> result = new LinkedList<>();
+		final Iterator<T> iterator = list.iterator();
+		while (iterator.hasNext()) {
+			final T next = iterator.next();
+			if (next.compareTo(target) == 0) {
+				result.add(next);
+			}
+		}
+
+		return result;
 	}
 
 	/**
