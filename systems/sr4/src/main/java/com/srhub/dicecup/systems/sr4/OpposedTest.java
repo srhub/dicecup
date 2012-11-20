@@ -15,9 +15,9 @@
  */
 package com.srhub.dicecup.systems.sr4;
 
-import com.srhub.task.core.Party;
+import com.srhub.task.api.OpposedTask;
+import com.srhub.task.core.DefaultOpposedTest.Result;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class OpposedTest.
  *
@@ -25,36 +25,27 @@ import com.srhub.task.core.Party;
  */
 public class OpposedTest {
 
-	/**
-	 * Roll.
-	 *
-	 * @param attackerRating
-	 *            the attacker rating
-	 * @param defenderRating
-	 *            the defender rating
-	 * @return the int
-	 * @throws Glitch
-	 *             the glitch exception
-	 */
-	public static int roll(final int attackerRating, final int defenderRating)
-			throws GlitchException {
+	public static Result roll(final int attackerRating, final int attackerEdge,
+			final int defenderRating, final int defenderEdge) {
 
-		int attackerSucesses;
-		try {
-			attackerSucesses = new SuccessTest().roll(attackerRating,
-					defenderRating);
-		} catch (final GlitchException e) {
-			throw new GlitchException(Party.ATTACKER, e.isCritical());
-		}
-		int defenderSuccesses;
-		try {
-			defenderSuccesses = new SuccessTest().roll(defenderRating,
-					attackerRating);
-		} catch (final GlitchException e) {
-			throw new GlitchException(Party.DEFENDER, e.isCritical());
-		}
+		final OpposedTask<Result> newOpposedTask = Sr4.newOpposedTask();
 
-		return attackerSucesses - defenderSuccesses;
+		return newOpposedTask.evaluate(defenderRating,
+				diceCount(attackerRating, attackerEdge), attackerRating,
+				diceCount(defenderRating, defenderEdge));
+
 	}
 
+	private static int[] diceCount(final int rating, final int edge) {
+		final int[] diceCount = new int[2];
+		if (edge > 0) {
+			diceCount[0] = 0;
+			diceCount[1] = rating + edge;
+			return diceCount;
+		}
+
+		diceCount[0] = rating;
+		diceCount[1] = 0;
+		return diceCount;
+	}
 }

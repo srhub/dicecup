@@ -15,12 +15,8 @@
  */
 package com.srhub.dicecup.systems.sr4;
 
-import java.util.List;
-
-import com.srhub.dicecup.core.Cup;
-import com.srhub.dicecup.dice.Dices;
-import com.srhub.dicecup.features.Features;
-import com.srhub.dicecup.util.Lists;
+import com.srhub.task.api.Glitch;
+import com.srhub.task.core.DefaultSuccessTest.Result;
 
 /**
  * A success test determines if a character can accomplish a task and how well
@@ -31,9 +27,6 @@ import com.srhub.dicecup.util.Lists;
  *
  */
 public class SuccessTest {
-
-	/** The Constant CRITICAL. */
-	private static final boolean CRITICAL = true;
 
 	/**
 	 * Roll.
@@ -46,8 +39,7 @@ public class SuccessTest {
 	 * @throws Glitch
 	 *             the glitch exception
 	 */
-	public int roll(final int rating, final int threshold)
-			throws GlitchException {
+	public Result roll(final int rating, final int threshold) {
 		return roll(rating, 0, threshold);
 	}
 
@@ -61,45 +53,15 @@ public class SuccessTest {
 	 * @param threshold
 	 *            the threshold
 	 * @return the int
-	 * @throws Glitch
-	 *             the glitch exception
 	 */
-	public int roll(final int rating, final int edge, final int threshold)
-			throws GlitchException {
+	public Result roll(final int rating, final int edge, final int threshold) {
 		if (edge > 0) {
-			return evaluate(Cup.add(Dices.D6, Features.REROLL_ADD_AT(6))
-					.build().roll(rating + edge).all(), threshold);
+			// if edge is spent, all dice showing a 6 will e rerolled and
+			// added to the original roll
+			return Sr4.newSuccessTask().evaluate(threshold, 0, rating + edge);
 		}
 
-		return evaluate(Cup.add(Dices.D6).build().roll(rating).all(), threshold);
-	}
-
-	/**
-	 * * Returns the number of success.
-	 *
-	 * @param roll
-	 *            the roll
-	 * @param threshold
-	 *            the threshold
-	 * @return the netto successes
-	 * @throws Glitch
-	 *             the glitch exception
-	 */
-	protected int evaluate(final List<Integer> roll, final int threshold)
-			throws GlitchException {
-
-		final int fails = Lists.count(roll, Sr4.FAIL_AT);
-		final int successes = Lists.greaterThanOrEquals(roll,
-				Sr4.DEFAULT_TARGET_NUMBER).size();
-
-		if (roll.size() / 2 <= fails) {
-			if (successes == 0) {
-				throw new GlitchException(CRITICAL);
-			}
-
-			throw new GlitchException();
-		}
-
-		return successes - threshold;
+		// no edge spend
+		return Sr4.newSuccessTask().evaluate(threshold, rating);
 	}
 }
