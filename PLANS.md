@@ -190,8 +190,6 @@ I propose using one (or more) condition tree that hold values that certain crite
 
 You get the idea. A `SituationResolver` traverses that tree and supplies the `Situation` with all the information it needs.
 
-# Appendix #
-
 ## Resources ##
 
 - [List of Role-playing game systems](http://en.wikipedia.org/wiki/Role-playing_game_system). Wikipedia.
