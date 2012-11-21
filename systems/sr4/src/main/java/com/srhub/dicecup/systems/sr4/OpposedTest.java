@@ -48,4 +48,5 @@ public class OpposedTest {
 		diceCount[1] = 0;
 		return diceCount;
 	}
+
 }

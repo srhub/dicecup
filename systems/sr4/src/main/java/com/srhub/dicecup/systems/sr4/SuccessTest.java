@@ -15,7 +15,6 @@
  */
 package com.srhub.dicecup.systems.sr4;
 
-import com.srhub.task.api.Glitch;
 import com.srhub.task.core.DefaultSuccessTest.Result;
 
 /**
@@ -35,9 +34,7 @@ public class SuccessTest {
 	 *            the rating
 	 * @param threshold
 	 *            the threshold
-	 * @return the int
-	 * @throws Glitch
-	 *             the glitch exception
+	 * @return the result
 	 */
 	public Result roll(final int rating, final int threshold) {
 		return roll(rating, 0, threshold);
@@ -52,7 +49,7 @@ public class SuccessTest {
 	 *            the edge
 	 * @param threshold
 	 *            the threshold
-	 * @return the int
+	 * @return the result
 	 */
 	public Result roll(final int rating, final int edge, final int threshold) {
 		if (edge > 0) {
